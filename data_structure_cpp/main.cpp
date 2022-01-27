@@ -6,7 +6,5 @@ int main()
 {
     cout << "Hello World!" << endl;
 
-    SqStaticList *L;
-    InitList(L);
     return 0;
 }

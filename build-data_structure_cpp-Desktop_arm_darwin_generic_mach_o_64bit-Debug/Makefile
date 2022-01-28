@@ -52,11 +52,15 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../data_structure_cpp/SequenceDynamicList.cpp \
-		../data_structure_cpp/SequenceStaticList.cpp \
+SOURCES       = ../data_structure_cpp/LinkNodeStack.cpp \
+		../data_structure_cpp/SequenceDynamicList.cpp \
+		../data_structure_cpp/SequenceQueue.cpp \
+		../data_structure_cpp/SequenceStack.cpp \
 		../data_structure_cpp/main.cpp 
-OBJECTS       = SequenceDynamicList.o \
-		SequenceStaticList.o \
+OBJECTS       = LinkNodeStack.o \
+		SequenceDynamicList.o \
+		SequenceQueue.o \
+		SequenceStack.o \
 		main.o
 DIST          = /opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/device_config.prf \
@@ -218,6 +222,7 @@ DIST          = /opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/spec_pre
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/spec_post.prf \
+		../data_structure_cpp/.qmake.stash \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/toolchain.prf \
@@ -239,8 +244,10 @@ DIST          = /opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/spec_pre
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/exceptions.prf \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/yacc.prf \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/lex.prf \
-		../data_structure_cpp/data_structure_cpp.pro  ../data_structure_cpp/SequenceDynamicList.cpp \
-		../data_structure_cpp/SequenceStaticList.cpp \
+		../data_structure_cpp/data_structure_cpp.pro  ../data_structure_cpp/LinkNodeStack.cpp \
+		../data_structure_cpp/SequenceDynamicList.cpp \
+		../data_structure_cpp/SequenceQueue.cpp \
+		../data_structure_cpp/SequenceStack.cpp \
 		../data_structure_cpp/main.cpp
 QMAKE_TARGET  = data_structure_cpp
 DESTDIR       = 
@@ -250,7 +257,7 @@ TARGET        = data_structure_cpp
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 12.1
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/wei.zhang/Documents/github/data_structure_cpp/build-data_structure_cpp-Desktop_arm_darwin_generic_mach_o_64bit-Debug/.qmake.stash
 EXPORT_VALID_ARCHS = arm64
 EXPORT_ACTIVE_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(ARCHS))
 EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_ARCHS), $(EXPORT_VALID_ARCHS)), -arch $(arch))
@@ -424,6 +431,7 @@ Makefile: ../data_structure_cpp/data_structure_cpp.pro /opt/homebrew/Cellar/qt/6
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/toolchain.prf \
@@ -607,6 +615,7 @@ Makefile: ../data_structure_cpp/data_structure_cpp.pro /opt/homebrew/Cellar/qt/6
 /opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/qt_config.prf:
 /opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/macx-clang/qmake.conf:
 /opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/exclusive_builds.prf:
 /opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/mac/sdk.prf:
 /opt/homebrew/Cellar/qt/6.1.1/share/qt/mkspecs/features/toolchain.prf:
@@ -652,6 +661,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) $(TARGET) 
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -676,13 +686,19 @@ compiler_clean:
 
 ####### Compile
 
+LinkNodeStack.o: ../data_structure_cpp/LinkNodeStack.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LinkNodeStack.o ../data_structure_cpp/LinkNodeStack.cpp
+
 SequenceDynamicList.o: ../data_structure_cpp/SequenceDynamicList.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SequenceDynamicList.o ../data_structure_cpp/SequenceDynamicList.cpp
 
-SequenceStaticList.o: ../data_structure_cpp/SequenceStaticList.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SequenceStaticList.o ../data_structure_cpp/SequenceStaticList.cpp
+SequenceQueue.o: ../data_structure_cpp/SequenceQueue.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SequenceQueue.o ../data_structure_cpp/SequenceQueue.cpp
 
-main.o: ../data_structure_cpp/main.cpp 
+SequenceStack.o: ../data_structure_cpp/SequenceStack.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SequenceStack.o ../data_structure_cpp/SequenceStack.cpp
+
+main.o: ../data_structure_cpp/main.cpp ../data_structure_cpp/SequenceStaticList.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../data_structure_cpp/main.cpp
 
 ####### Install

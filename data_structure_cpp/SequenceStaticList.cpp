@@ -54,8 +54,7 @@ void printList(SqStaticList L) {
         } else {
             printf("%d, ", L.data[i]);
         }
-        
-        
+
     }
 }
 

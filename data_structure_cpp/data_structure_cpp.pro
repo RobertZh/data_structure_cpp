@@ -4,6 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        LinkNodeStack.cpp \
         SequenceDynamicList.cpp \
+        SequenceQueue.cpp \
+        SequenceStack.cpp \
         SequenceStaticList.cpp \
         main.cpp
